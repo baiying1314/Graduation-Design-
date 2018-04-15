@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#main,#gr-title {
+    display: table;
+    color: #d18783;
+    background-color: #d1bd9d;
+    width: 100%;
+    height: 100px;
+}
+
+#main h1,#gr h1{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#GraduationRequirements {
+    display: table;
+    width: 200px;
+    height: 200px;
+    background-color: #8b3f4d;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+}
+
+#GraduationRequirements p {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#ExaminationPlan {
+    display: table;
+    width: 200px;
+    height: 200px;
+    background-color: #638b83;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+}
+
+#ExaminationPlan p {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#sg1 {
+    margin-top: 40px;
+}
+
+/*graduationRequirments页面*/
+#gr,#gr h1{
+    margin-top: 0;
+}
+#gr-title {
+    color: #d18783;
+    background-color: #d1bd9d;
+    height: 100px;
+}
+
+#gr-in{
+    width: 600px;
+    margin-top:20px;
+    margin-left: 600px;
+}
+
+#gr-main{
+  margin-top: 20px;
+}
+
+#gr-main select,#gr-main button{
+    margin-right: 15px;
+    margin-left: 20px;
+}
+
+
