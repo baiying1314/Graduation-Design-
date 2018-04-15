@@ -3,63 +3,12 @@ import {render} from "react-dom";
 
 export default class GraduationRequirements extends Component {
     componentWillMount() {
-        this.state = {
-            arr: [
-                {
-                    profession_level_id: 1,
-                    profession: "软件工程",
-                    level: '2014',
-                    gra_requirements: '动手实践能力',
-                    index_point: ['df', 'df', 'gd']
-                },
-                {
-                    profession_level_id: 2,
-                    profession: "软件工程",
-                    level: '2015',
-                    gra_requirements: '动手实践能力',
-                    index_point: ['df', 'df', 'gd']
-                },
-                {
-                    profession_level_id: 3,
-                    profession: "软件工程",
-                    level: '2014',
-                    gra_requirements: '写作能力',
-                    index_point: ['sfsd', 'df', 'gd']
-                },
-                {
-                    profession_level_id: 4,
-                    profession: "软件工程",
-                    level: '2015',
-                    gra_requirements: '写作能力',
-                    index_point: ['df', 'df', 'gd', 'sfds']
-                },
-                {
-                    profession_level_id: 5,
-                    profession: "网络工程",
-                    level: '2015',
-                    gra_requirements: '写作能力',
-                    index_point: ['df', 'df', 'gd', 'sfds', 'erewter']
-                },
-                {
-                    profession_level_id: 6,
-                    profession: "网络工程",
-                    level: '2017',
-                    gra_requirements: '写作能力',
-                    index_point: ['df', 'df', 'gd', 'sfds', 'erewter']
-                },
-                {
-                    profession_level_id: 7,
-                    profession: "网络工程",
-                    level: '2015',
-                    gra_requirements: 'xx能力',
-                    index_point: ['df', 'df', 'gd', 'sfds', 'erewter', 'sdfdas']
-                }
-            ]
-        };
+        this.props.getAllProfessions();
     }
 
     getProffesion() {
-        var professions = this.state.arr.map((obj)=> {
+        var professionsArr = this.props.professions;
+        var professions = professionsArr.map((obj)=> {
             return obj.profession;
         });
         return this.turnArr(professions);
@@ -67,7 +16,6 @@ export default class GraduationRequirements extends Component {
 
     createOption() {
         var professionsArr = this.getProffesion();
-        console.log(professionsArr);
         var professionsOption = professionsArr.map((profession, index)=> {
             return <option key={index} value={profession}>{profession}</option>
 
@@ -76,8 +24,9 @@ export default class GraduationRequirements extends Component {
     }
 
     levelSure(professionVal) {
+        var professionsArr = this.props.professions;
 
-        var professionFilter = this.state.arr.filter((obj)=> {
+        var professionFilter = professionsArr.filter((obj)=> {
             return obj.profession == professionVal;
         });
 
@@ -85,16 +34,18 @@ export default class GraduationRequirements extends Component {
             return obj.level;
         });
 
-        var grades =this.turnArr(gradesArr);
+        var grades = this.turnArr(gradesArr);
         var selectLevel = document.getElementById('grade-sel');
         selectLevel.innerHTML = '<option value="add">增加年级</option>';
         this.addSelectOption(grades, selectLevel);
     }
 
     reqSure(levelVal) {
+        var professionsArr = this.props.professions;
+
         var professionVal = document.getElementById('pro-sel').value;
 
-        var levelFilter = this.state.arr.filter((obj)=> {
+        var levelFilter = professionsArr.filter((obj)=> {
             return (obj.level == levelVal && professionVal == obj.profession);
         });
 
@@ -111,14 +62,18 @@ export default class GraduationRequirements extends Component {
     pointSure(reqVal) {
         var professionVal = document.getElementById('pro-sel').value;
         var levalVal = document.getElementById('grade-sel').value;
+        var professionsArr = this.props.professions;
+
 
         var selectPoint = document.getElementById('gr-point');
-        selectPoint.innerHTML = '<option value="add">增加毕业要求</option>'
-        var poiontObj = this.state.arr.filter((obj, index)=> {
+        selectPoint.innerHTML = '<option value="add">增加指标点</option>'
+        var pointFilter = professionsArr.filter((obj, index)=> {
             return (obj.profession == professionVal && obj.level == levalVal && obj.gra_requirements == reqVal)
         });
-        var points = poiontObj[0].index_point;
-        this.addSelectOption(points, selectPoint);
+        var pointArr = pointFilter.map((obj, index)=> {
+            return obj.index_point;
+        });
+        this.addSelectOption(pointArr, selectPoint);
 
     }
 
@@ -132,13 +87,20 @@ export default class GraduationRequirements extends Component {
         })
     }
 
-    turnArr(arr){
+    turnArr(arr) {
         var uncoArr = new Set(arr);
         return [...uncoArr];
     }
 
-    render() {
+    // deleteProfession() {
+    //     var professionVal = document.getElementById('pro-sel').value;
+    //     var levalVal = document.getElementById('grade-sel').value;
+    //     var reqVal = document.getElementById('gr-req').value;
+    //     var pointlVal = document.getElementById('gr-point').value;
+    //     this.props.deleteProfession(professionVal, levalVal, reqVal, pointlVal);
+    // }
 
+    render() {
         var professions = this.createOption();
         return <div id="gr">
             <div id="gr-title" ref='a'>
@@ -175,7 +137,7 @@ export default class GraduationRequirements extends Component {
                 <select name="point" id="gr-point" className="col-md-2  btn">
                     <option value="tip" hidden="hidden" selected="selected">指标点</option>
                 </select>
-                <button　className="btn col-md-1" >删除</button>
+                <button className="btn col-md-1" >删除</button>
             </div>
         </div>
     }

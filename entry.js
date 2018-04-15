@@ -3,17 +3,29 @@ import React from "react";
 import {render} from "react-dom";
 import {IndexRoute, hashHistory} from "react-router";
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import {createStore, applyMiddleware} from "redux";
+import {Provider} from "react-redux";
+
 import Main from "./public/component/main.js";
 import ExaminationPlan from "./public/component/ExaminationPlan.js";
-import GraduationRequirements from "./public/component/GraduationRequirments";
 import Menu from "./public/component/Menu.js";
 
+import getAllProfessions from "./public/middleware/getAllProfessions";
 
-render(<Router history={hashHistory}>
+import GraduationRequirements from "./public/container/GraduationRequirments";
+
+import reducer from "./public/reducer/index";
+
+const middleware = applyMiddleware(getAllProfessions);
+const store = createStore(reducer, middleware);
+
+
+render(<Provider store={store}>
+    <Router history={hashHistory}>
         <Main>
             <Route path='/menu' component={Menu}/>
             <Route path='/graduationRequirements' component={GraduationRequirements}/>
             <Route path='/examinationPlan' component={ExaminationPlan}/>
         </Main>
     </Router>
-    , document.getElementById("content"));
+</Provider>, document.getElementById("content"));
