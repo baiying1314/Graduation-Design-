@@ -9,6 +9,9 @@ const mapDispatchToprops = (dispatch)=> {
     return {
         getAllProfessions: ()=> {
             dispatch({type: "getAllProfessions"})
+        },
+        deleteProfession:(professionInfo)=>{
+            dispatch({type:"DELETEPROFESSION",professionInfo})
         }
 
     }

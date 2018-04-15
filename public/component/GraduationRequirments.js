@@ -92,15 +92,16 @@ export default class GraduationRequirements extends Component {
         return [...uncoArr];
     }
 
-    // deleteProfession() {
-    //     var professionVal = document.getElementById('pro-sel').value;
-    //     var levalVal = document.getElementById('grade-sel').value;
-    //     var reqVal = document.getElementById('gr-req').value;
-    //     var pointlVal = document.getElementById('gr-point').value;
-    //     this.props.deleteProfession(professionVal, levalVal, reqVal, pointlVal);
-    // }
+    deleteProfession() {
+        var professionVal = document.getElementById('pro-sel').value;
+        var levalVal = document.getElementById('grade-sel').value;
+        var reqVal = document.getElementById('gr-req').value;
+        var pointlVal = document.getElementById('gr-point').value;
+        this.props.deleteProfession({professionVal, levalVal, reqVal, pointlVal});
+    }
 
     render() {
+
         var professions = this.createOption();
         return <div id="gr">
             <div id="gr-title" ref='a'>
@@ -137,7 +138,7 @@ export default class GraduationRequirements extends Component {
                 <select name="point" id="gr-point" className="col-md-2  btn">
                     <option value="tip" hidden="hidden" selected="selected">指标点</option>
                 </select>
-                <button className="btn col-md-1" >删除</button>
+                <button className="btn col-md-1" onClick={this.deleteProfession.bind(this)}>删除</button>
             </div>
         </div>
     }

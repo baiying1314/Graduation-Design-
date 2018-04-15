@@ -11,12 +11,13 @@ import ExaminationPlan from "./public/component/ExaminationPlan.js";
 import Menu from "./public/component/Menu.js";
 
 import getAllProfessions from "./public/middleware/getAllProfessions";
+import deleteProfession from "./public/middleware/deleteProfession";
 
 import GraduationRequirements from "./public/container/GraduationRequirments";
 
 import reducer from "./public/reducer/index";
 
-const middleware = applyMiddleware(getAllProfessions);
+const middleware = applyMiddleware(getAllProfessions,deleteProfession);
 const store = createStore(reducer, middleware);
 
 
