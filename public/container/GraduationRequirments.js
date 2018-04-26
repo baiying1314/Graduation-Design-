@@ -2,16 +2,28 @@ import {connect} from "react-redux";
 import GraduationRequirements from "../component/GraduationRequirments";
 
 const mapStateToProps = (state)=> {
-    return {professions:state.getProfessions}
+    return {graduationRequirment: state.graduationRequirment}
 };
 
 const mapDispatchToprops = (dispatch)=> {
     return {
         getAllProfessions: ()=> {
-            dispatch({type: "getAllProfessions"})
+            dispatch({type: "GETPROFESSIONS"})
         },
-        deleteProfession:(professionInfo)=>{
-            dispatch({type:"DELETEPROFESSION",professionInfo})
+        getReqPiont: (proLevel)=> {
+         dispatch({type:"GETREQPOINT",proLevel})
+        },
+        changePoint:(changeInfo)=>{
+            dispatch({type:"CHANGEPOINT",changeInfo})
+        },
+        deleteProfession: (deleteInfo)=> {
+            dispatch({type: "DELETEPROFESSION", deleteInfo})
+        },
+        addRequirment:(addReqInfo)=>{
+            dispatch({type:"ADDREQ",addReqInfo})
+        },
+        addProfession:(professionName)=>{
+            dispatch({type:"ADDPROFESSION",professionName})
         }
 
     }

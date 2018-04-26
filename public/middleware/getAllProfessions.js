@@ -1,7 +1,7 @@
 import request from 'superagent';
 
 export default store=>next=>action=> {
-    if(action.type === "getAllProfessions"){
+    if(action.type === "GETPROFESSIONS"){
         request.get("/professions")
             .end((err,res)=>{
                 next({type:action.type,result:res.body})
