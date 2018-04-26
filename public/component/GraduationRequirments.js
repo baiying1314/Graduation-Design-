@@ -4,6 +4,7 @@ import {render} from "react-dom";
 export default class GraduationRequirements extends Component {
     componentWillMount() {
         this.props.getAllProfessions();
+
     }
 
     createOption() {
@@ -37,9 +38,20 @@ export default class GraduationRequirements extends Component {
     }
 
     selectReq() {
+
         const levelVal = document.getElementById('level-sel').value;
         const professionVal = document.getElementById('pro-sel').value;
-        if (levelVal && professionVal && professionVal != 'add') {
+        if (levelVal && professionVal && professionVal != 'add' && professionVal != 'tip') {
+            const tableNode = document.getElementById('tabledata');
+            const thNode = document.createElement('thead');
+            thNode.innerHTML = `<tr><th>毕业要求</th><th>指标点</th><th></th><th>操作</th><th></th></tr>`;
+            tableNode.appendChild(thNode);
+            const tfootNode = document.createElement('tfoot');
+            tfootNode.innerHTML = `<tr><td><td></td></td><td colspan="4"><button class='btn btn-primary col-md-12 'id='addbutton'/>增加指标点</button></td></tr>`;
+            tableNode.appendChild(tfootNode);
+            document.getElementById('addbutton').onclick = ()=> {
+                this.modalPoint();
+            };
             this.props.getReqPiont({levelVal, professionVal});
         }
         else {
@@ -65,7 +77,12 @@ export default class GraduationRequirements extends Component {
 
         var selectedLevel = document.getElementById('level-sel').value;
         document.getElementById('selectedLevel').value = selectedLevel;
-        $("#modalReq").modal('show');
+        if (selectedLevel && selectedProfession && selectedProfession != 'add' && selectedProfession != 'tip') {
+            $("#modalReq").modal('show');
+        }
+        else {
+            alert('请正确选择专业和年级!');
+        }
     }
 
     addReq() {
@@ -156,7 +173,7 @@ export default class GraduationRequirements extends Component {
             <div className="container">
                 <div id="gr-main" className="row">
 
-                    <select name="pro" id="pro-sel" className="col-md-3 btn" onChange={this.inputProfession.bind(this)}>
+                    <select name="pro" id="pro-sel" className="col-md-2 btn" onChange={this.inputProfession.bind(this)}>
                         <option value="tip" hidden="hidden" selected="selected">
                             请选择专业
                         </option>
@@ -169,18 +186,17 @@ export default class GraduationRequirements extends Component {
                         />
                     </div>
 
-                    <button className="btn col-md-2 col-md-offset-1" onClick={this.selectReq.bind(this)}>查询</button>
+                    <button className=" btn btn-primary col-md-2" onClick={this.selectReq.bind(this)}>查询</button>
+                    <button className=" col-md-2 btn btn-primary" onClick={this.modalReq.bind(this)}>增加毕业要求</button>
 
 
                 </div>
                 <div className="data">
-                    <table className="table table-hover">
+                    <table className="table table-hover" id="tabledata">
                         <tbody>
                         {reqPiontsNode}
                         </tbody>
                     </table>
-                    <button className="addright btn btn-primary" onClick={this.modalReq.bind(this)}>增加毕业要求</button>
-                    <button className="addright btn btn-primary" onClick={this.modalPoint.bind(this)}>增加指标点</button>
                 </div>
             </div>
             <div className="modal fade bs-example-modal-lg" id="modalReq" ref='modal' role="dialog" data-toggle="modal"
@@ -188,7 +204,7 @@ export default class GraduationRequirements extends Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h4 className="modal-title" id="myModalLabel">增加指标点</h4>
+                            <h4 className="modal-title" id="myModalLabel">增加毕业要求</h4>
                         </div>
                         <div className="">
                             <div className="info input-group">

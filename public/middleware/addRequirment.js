@@ -7,7 +7,7 @@ export default store=>next=>action=> {
             .end((err, res)=> {
                 console.log(res);
                 if (res.status === 200) {
-                    store.dispatch({type: "GETREQPOINT"})
+                    store.dispatch({type: "GETREQPOINT",proLevel:{professionVal:action.addReqInfo.selectedProfession,levelVal:action.addReqInfo.selectedLevel}})
                 }
             })
     }
