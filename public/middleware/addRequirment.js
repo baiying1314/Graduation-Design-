@@ -5,7 +5,6 @@ export default store=>next=>action=> {
         request.post(`/requirment`)
             .send(action.addReqInfo)
             .end((err, res)=> {
-                console.log(res);
                 if (res.status === 200) {
                     store.dispatch({type: "GETREQPOINT",proLevel:{professionVal:action.addReqInfo.selectedProfession,levelVal:action.addReqInfo.selectedLevel}})
                 }

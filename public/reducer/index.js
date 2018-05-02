@@ -1,4 +1,5 @@
 import {combineReducers} from "redux";
-import graduationRequirment from "./getProfessions";
+import graduationRequirment from "./graduationRequirment";
+import examinationPlan from './examinationPlan';
 
-export default combineReducers({graduationRequirment});
+export default combineReducers({graduationRequirment,examinationPlan});

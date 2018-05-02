@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-body{
+body {
     background-image: url("./images/back.jpg");
     background-size: 100%;
 
@@ -15,8 +15,9 @@ body{
     margin: 0;
     font-size: larger;
 }
-#home,#gr{
-    width: 80%;
+
+#home, #gr, #exam {
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -25,7 +26,7 @@ body{
     border-bottom: hidden;
     color: #677f88;
     background-color: #d1d0c7;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -33,101 +34,103 @@ body{
     vertical-align: middle;
     margin: 0 5%;
     padding: 30px;
-    font-family:"微软雅黑","宋体";
+    font-family: "微软雅黑", "宋体";
 }
 
 /*#GraduationRequirements {*/
-    /*display: table;*/
-    /*width: 200px;*/
-    /*height: 50px;*/
+/*display: table;*/
+/*width: 200px;*/
+/*height: 50px;*/
 
 /*}*/
 
 /*#GraduationRequirements p {*/
-    /*display: table-cell;*/
-    /*text-align: center;*/
-    /*vertical-align: middle;*/
+/*display: table-cell;*/
+/*text-align: center;*/
+/*vertical-align: middle;*/
 /*}*/
 
 /*#ExaminationPlan {*/
-    /*display: table;*/
-    /*width: 200px;*/
-    /*height: 50px;*/
+/*display: table;*/
+/*width: 200px;*/
+/*height: 50px;*/
 
 /*}*/
 
 /*#ExaminationPlan p {*/
-    /*display: table-cell;*/
-    /*text-align: center;*/
-    /*vertical-align: middle;*/
+/*display: table-cell;*/
+/*text-align: center;*/
+/*vertical-align: middle;*/
 /*}*/
 
 /*#sg1, #exam-main {*/
-    /*margin-top: 40px;*/
+/*margin-top: 40px;*/
 /*}*/
 
 /*!*graduationRequirments页面*!*/
 /*#gr, #gr h1 {*/
-    /*margin-top: 0;*/
+/*margin-top: 0;*/
 /*}*/
 
 /*#gr-title {*/
-    /*color: #d18783;*/
-    /*background-color: #d1bd9d;*/
-    /*height: 100px;*/
+/*color: #d18783;*/
+/*background-color: #d1bd9d;*/
+/*height: 100px;*/
 /*}*/
 
 /*#gr-in {*/
-    /*width: 600px;*/
-    /*margin-top: 20px;*/
-    /*margin-left: 600px;*/
+/*width: 600px;*/
+/*margin-top: 20px;*/
+/*margin-left: 600px;*/
 /*}*/
 
 /*#gr-main, #plan-input {*/
-    /*margin-top: 20px;*/
+/*margin-top: 20px;*/
 /*}*/
 
 /*#gr-main select, #gr-main button {*/
-    /*margin-right: 15px;*/
-    /*margin-left: 20px;*/
+/*margin-right: 15px;*/
+/*margin-left: 20px;*/
 /*}*/
 
 /*#plan-main {*/
-    /*width: 600px;*/
-    /*!*height: 500px;*!*/
-    /*background-color: #d1c5b8;*/
-    /*margin: 20px auto;*/
-    /*padding: 10px;*/
+/*width: 600px;*/
+/*!*height: 500px;*!*/
+/*background-color: #d1c5b8;*/
+/*margin: 20px auto;*/
+/*padding: 10px;*/
 /*}*/
 
 /*#plan-main input {*/
-    /*margin-right: 30px;*/
-    /*margin-top: 30px;*/
+/*margin-right: 30px;*/
+/*margin-top: 30px;*/
 /*}*/
 
 /*#plan-submit {*/
-    /*display: block;*/
-    /*width: 200px;*/
-    /*height: 50px;*/
-    /*margin: 20px auto;*/
+/*display: block;*/
+/*width: 200px;*/
+/*height: 50px;*/
+/*margin: 20px auto;*/
 /*}*/
 
 /*#modal button,.info{*/
-    /*margin: 20px;*/
+/*margin: 20px;*/
 /*}*/
 
 /*.modal-content{*/
-    /*background-color: #d1c5b8;*/
+/*background-color: #d1c5b8;*/
 /*}*/
-.container{
+.container {
     width: 70%;
     margin: 20px 30%;
 }
-.container img{
+
+.container img {
     width: 100%;
     height: 100%;
 }
-.container ul li{
+
+.container ul li {
     height: 100%;
     list-style: none;
     width: 100%;
@@ -142,44 +145,80 @@ body{
     overflow: hidden;
 }
 
-@keyframes pic_1{
-    0% {opacity: 1;}
-    25% { opacity: 1;}
-    26% { opacity: 0;}
-    40% { opacity: 0;}
-    91% { opacity: 0;}
-    100% { opacity: 1;}
+@keyframes pic_1 {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 1;
+    }
+    26% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 0;
+    }
+    91% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @-webkit-keyframes pic_2 {
-    0% { opacity: 0;}
-    25% { opacity: 0;}
-    26% { opacity: 1;}
-    60% { opacity: 1;}
-    61% { opacity: 0;}
-    100% { opacity: 0;}
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 0;
+    }
+    26% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    61% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
 }
+
 @-webkit-keyframes pic_3 {
-    0% { opacity: 0;}
-    60% { opacity: 0;}
-    61% { opacity: 1;}
-    91% { opacity: 1;}
-    100% { opacity: 0;}
+    0% {
+        opacity: 0;
+    }
+    60% {
+        opacity: 0;
+    }
+    61% {
+        opacity: 1;
+    }
+    91% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
+
 #first {
     animation: pic_1 15s infinite;
 }
 
-#second{
+#second {
     animation: pic_2 15s infinite;
 }
 
-#third{
+#third {
     animation: pic_3 15s infinite;
 
 }
 
-.left{
+.left {
     width: 20%;
     background-color: #d1d1bf;
     position: absolute;
@@ -187,7 +226,8 @@ body{
     margin-top: 40px;
     color: white;
 }
-.tip{
+
+.tip {
     width: 80%;
     height: 40px;
     margin: 40px auto;
@@ -195,35 +235,45 @@ body{
     border-radius: 4%;
 }
 
-#logo{
+#logo {
     width: 5%;
     position: absolute;
     float: left;
 }
 
-.dingwei{
+.dingwei {
     position: absolute;
     float: left;
 }
 
-.dingwei img{
+.dingwei img {
     width: 20px;
 }
-.data{
-    display: inline-block;
 
+.data {
+    display: inline-block;
     width: 100%;
     height: 350px;
     overflow: auto;
 }
-table{
-    margin-top: 30px;
+
+table {
+    /*margin-top: 30px;*/
     background-color: #d1c792;
+    font-size: 12px;
+
 }
 
-.addright{
-    width: 40%;
-    height: 40px;
-    margin-right: 10%;
 
+#plandata td {
+    vertical-align: middle;
+    text-align: center;
+    min-height: 30px;
+    min-width: 30px;
+    padding: 5px;
+}
+table caption{
+    font-size: 18px;
+}
+table{
 }

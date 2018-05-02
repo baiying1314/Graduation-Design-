@@ -47,7 +47,7 @@ export default class GraduationRequirements extends Component {
             thNode.innerHTML = `<tr><th>毕业要求</th><th>指标点</th><th></th><th>操作</th><th></th></tr>`;
             tableNode.appendChild(thNode);
             const tfootNode = document.createElement('tfoot');
-            tfootNode.innerHTML = `<tr><td><td></td></td><td colspan="4"><button class='btn btn-primary col-md-12 'id='addbutton'/>增加指标点</button></td></tr>`;
+            tfootNode.innerHTML = `<tr><td><td></td></td><td colspan="4"><button class='btn btn-primary col-md-12' id='addbutton'/>增加指标点</button></td></tr>`;
             tableNode.appendChild(tfootNode);
             document.getElementById('addbutton').onclick = ()=> {
                 this.modalPoint();
@@ -65,10 +65,16 @@ export default class GraduationRequirements extends Component {
 
     }
 
-    changePoint(id, oldPoint) {
+    changePoint(e, id, oldPoint) {
         const levelVal = document.getElementById('level-sel').value;
         const professionVal = document.getElementById('pro-sel').value;
-        this.props.changePoint({changeData: {id, oldPoint}, proLevel: {levelVal, professionVal}})
+        var newPoint = e.target.parentNode.previousSibling.previousSibling.childNodes[0].value;
+        if (newPoint != oldPoint) {
+            this.props.changePoint({changeData: {id,oldPoint, newPoint}, proLevel: {levelVal, professionVal}})
+        }
+        else {
+            alert('未发现任何修改！');
+        }
     }
 
     modalReq() {
@@ -159,7 +165,9 @@ export default class GraduationRequirements extends Component {
                     <button onClick={this.writePoint}>编辑</button>
                 </td>
                 <td>
-                    <button onClick={this.changePoint.bind(this, obj.profession_level_id, obj.index_point)}>确认修改
+                    <button onClick={(e)=> {
+                        this.changePoint(e, obj.profession_level_id, obj.index_point)
+                    }}>确认修改
                     </button>
                 </td>
                 <td>
