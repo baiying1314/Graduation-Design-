@@ -31,10 +31,10 @@ export default class GraduationRequirements extends Component {
         return [...uncoArr];
     }
 
-    deleteData(id) {
+    deleteData(id,point) {
         const levelVal = document.getElementById('level-sel').value;
         const professionVal = document.getElementById('pro-sel').value;
-        this.props.deleteProfession({id, proLevel: {levelVal, professionVal}});
+        this.props.deleteProfession({deleteInfo: {id,point}, proLevel: {levelVal, professionVal}});
     }
 
     selectReq() {
@@ -42,16 +42,8 @@ export default class GraduationRequirements extends Component {
         const levelVal = document.getElementById('level-sel').value;
         const professionVal = document.getElementById('pro-sel').value;
         if (levelVal && professionVal && professionVal != 'add' && professionVal != 'tip') {
-            const tableNode = document.getElementById('tabledata');
-            const thNode = document.createElement('thead');
-            thNode.innerHTML = `<tr><th>毕业要求</th><th>指标点</th><th></th><th>操作</th><th></th></tr>`;
-            tableNode.appendChild(thNode);
-            const tfootNode = document.createElement('tfoot');
-            tfootNode.innerHTML = `<tr><td><td></td></td><td colspan="4"><button class='btn btn-primary col-md-12' id='addbutton'/>增加指标点</button></td></tr>`;
-            tableNode.appendChild(tfootNode);
-            document.getElementById('addbutton').onclick = ()=> {
-                this.modalPoint();
-            };
+            const thNode = document.getElementById('tableHead');
+            thNode.innerHTML = `<tr><th>序号</th><th>毕业要求</th><th>指标点</th></tr>`;
             this.props.getReqPiont({levelVal, professionVal});
         }
         else {
@@ -62,6 +54,7 @@ export default class GraduationRequirements extends Component {
     writePoint(e) {
         const pointTd = e.target.parentNode.previousSibling.childNodes[0];
         pointTd.disabled = false;
+        console.log(pointTd.disabled);
 
     }
 
@@ -70,7 +63,7 @@ export default class GraduationRequirements extends Component {
         const professionVal = document.getElementById('pro-sel').value;
         var newPoint = e.target.parentNode.previousSibling.previousSibling.childNodes[0].value;
         if (newPoint != oldPoint) {
-            this.props.changePoint({changeData: {id,oldPoint, newPoint}, proLevel: {levelVal, professionVal}})
+            this.props.changePoint({changeData: {id, newPoint}, proLevel: {levelVal, professionVal}})
         }
         else {
             alert('未发现任何修改！');
@@ -79,10 +72,10 @@ export default class GraduationRequirements extends Component {
 
     modalReq() {
         var selectedProfession = document.getElementById('pro-sel').value;
-        document.getElementById('selectedProfession').value = selectedProfession;
+        document.getElementById('selectedProfession2').value = selectedProfession;
 
         var selectedLevel = document.getElementById('level-sel').value;
-        document.getElementById('selectedLevel').value = selectedLevel;
+        document.getElementById('selectedLevel2').value = selectedLevel;
         if (selectedLevel && selectedProfession && selectedProfession != 'add' && selectedProfession != 'tip') {
             $("#modalReq").modal('show');
         }
@@ -92,65 +85,72 @@ export default class GraduationRequirements extends Component {
     }
 
     addReq() {
-        var selectedProfession = document.getElementById('pro-sel').value;
-        var selectedLevel = document.getElementById('level-sel').value;
-        var addReq = document.getElementById('textReq').value;
-        var addPoint = document.getElementById('textPoint').value;
-        const arr = addPoint.split(/[\n]/g);
-        const objArr = arr.map((obj, index)=> {
-            return {selectedProfession, selectedLevel, addReq, point: obj}
-        });
-        this.props.addRequirment(objArr);
-    }
-
-    modalPoint() {
-        var selectedProfession = document.getElementById('pro-sel').value;
-        document.getElementById('p-selectedProfession').value = selectedProfession;
-
-        var selectedLevel = document.getElementById('level-sel').value;
-        document.getElementById('p-selectedLevel').value = selectedLevel;
-
-        const selectedDatas = this.props.graduationRequirment.selectedDatas;
-        var reqs = selectedDatas.map((obj, index)=> {
-            return obj.gra_requirements;
-        });
-        var selectNode = document.getElementById('p-selectedReq');
-        var reqArr = this.turnArr(reqs);
-        this.addSelectOption(reqArr, selectNode);
-        $("#modalPoint").modal('show');
-    }
-
-    addPoint() {
-        var selectedProfession = document.getElementById('pro-sel').value;
-        var selectedLevel = document.getElementById('level-sel').value;
-        var addReq = document.getElementById('p-selectedReq').value;
-        var addPoint = document.getElementById('p-textPoint').value;
-        const arr = addPoint.split(/[\n]/g);
-        const objArr = arr.map((obj, index)=> {
-            return {selectedProfession, selectedLevel, addReq, point: obj}
-        });
-        if (addPoint && addPoint != '') {
+        var selectedProfession = document.getElementById('selectedProfession2').value;
+        var selectedLevel = document.getElementById('selectedLevel2').value;
+        var addReq = document.getElementById('textReq2').value;
+        var addPoint = document.getElementById('textPoint2').value;
+        var points = addPoint.split(/[\n]/g);
+        if (selectedProfession && selectedLevel && addReq && addPoint && points.length > 0) {
+            var objArr = {selectedProfession, selectedLevel, addReq, points};
             this.props.addRequirment(objArr);
         }
         else {
-            alert('请输入指标点！');
+            alert('请输入完整信息!');
         }
     }
 
-    inputProfession() {
-        var selectedProfession = document.getElementById('pro-sel').value;
-        if (selectedProfession === 'add') {
-            $("#professionModal").modal('show')
+    modalPoint() {
+        if (this.props.graduationRequirment.selectedDatas.length < 1) {
+            alert('没有可选择的毕业要求,请先查询毕业要求或重新选择专业年级');
         }
+        else {
+            var selectedProfession = document.getElementById('pro-sel').value;
+            document.getElementById('selectedProfession3').value = selectedProfession;
+            var selectedLevel = document.getElementById('level-sel').value;
+            document.getElementById('selectedLevel3').value = selectedLevel;
+
+            const selectedDatas = this.props.graduationRequirment.selectedDatas;
+            var reqs = selectedDatas.map((obj, index)=> {
+                return obj.gra_requirements;
+            });
+            var selectNode = document.getElementById('textReq3');
+            var reqArr = this.turnArr(reqs);
+            this.addSelectOption(reqArr, selectNode);
+            $("#modalPoint").modal('show');
+        }
+    }
+
+    addPoint() {
+        var selectedProfession = document.getElementById('selectedProfession3').value;
+        var selectedLevel = document.getElementById('selectedLevel3').value;
+        var addReq = document.getElementById('textReq3').value;
+        var addPoint = document.getElementById('textPoint3').value;
+        var points = addPoint.split(/[\n]/g);
+        if (selectedProfession && selectedLevel && addReq && addPoint && points.length > 0) {
+            var objArr = {selectedProfession, selectedLevel, addReq, points};
+            this.props.addPoint(objArr);
+        }
+        else {
+            alert('请输入完整信息!');
+        }
+    }
+
+    modalProfession() {
+        $("#professionModal").modal('show')
     }
 
     addProfession() {
-        var professionName = document.getElementById('professionName').value;
-        if (professionName && professionName != '') {
-            this.props.addProfession({professionName});
+        var selectedProfession = document.getElementById('selectedProfession1').value;
+        var selectedLevel = document.getElementById('selectedLevel1').value;
+        var addReq = document.getElementById('textReq1').value;
+        var addPoint = document.getElementById('textPoint1').value;
+        var points = addPoint.split(/[\n]/g);
+        if (selectedProfession && selectedLevel && addReq && addPoint && points.length > 0) {
+            var objArr = {selectedProfession, selectedLevel, addReq, points};
+            this.props.addProfession(objArr);
         }
         else {
-            alert('请输入专业名称!');
+            alert('请输入完整信息!');
         }
     }
 
@@ -158,21 +158,18 @@ export default class GraduationRequirements extends Component {
         const professions = this.createOption();
         const selectedDatas = this.props.graduationRequirment.selectedDatas;
         const reqPiontsNode = selectedDatas.map((obj, index)=> {
+            const pointsArr = obj.index_point.map((item, index)=> {
+                return <tr>
+                    <td><input type="text" disabled="true" defaultValue={item}/></td>
+                    <td  className="opdelete">
+                        <button onClick={this.deleteData.bind(this, obj._id,item)}>刪除</button>
+                    </td>
+                </tr>
+            });
             return <tr key={index}>
-                <td>{obj.gra_requirements}</td>
-                <td><input type="text" id="inputPoint" defaultValue={obj.index_point} disabled="true"/></td>
-                <td>
-                    <button onClick={this.writePoint}>编辑</button>
-                </td>
-                <td>
-                    <button onClick={(e)=> {
-                        this.changePoint(e, obj.profession_level_id, obj.index_point)
-                    }}>确认修改
-                    </button>
-                </td>
-                <td>
-                    <button onClick={this.deleteData.bind(this, obj.profession_level_id)}>刪除</button>
-                </td>
+                <td className="num">{selectedDatas.indexOf(obj) + 1}</td>
+                <td className="req" >{obj.gra_requirements}</td>
+                <td className="op">{pointsArr}</td>
             </tr>
         });
 
@@ -180,27 +177,37 @@ export default class GraduationRequirements extends Component {
             <div className="dingwei"><img src="../style/images/dingwei.png" alt=""/>当前位置：毕业要求管理页</div>
             <div className="container">
                 <div id="gr-main" className="row">
-
-                    <select name="pro" id="pro-sel" className="col-md-2 btn" onChange={this.inputProfession.bind(this)}>
-                        <option value="tip" hidden="hidden" selected="selected">
-                            请选择专业
-                        </option>
-                        {professions}
-                        <option value="add" id="add">增加其他专业</option>
-                    </select>
-                    <div className="col-md-5 col-md-offset-1">
-                        <span className="btn">年级</span>
-                        <input type="number" id="level-sel" className="btn" defaultValue="2014" placeholder="输入年级"
-                        />
+                    <div className="col-md-3">
+                        <span>专&nbsp;业&nbsp;&nbsp;</span>
+                        <select name="pro" id="pro-sel" className="btn-sm">
+                            {professions}
+                        </select>
+                    </div>
+                    <div className="col-md-3 ">
+                        <span>年&nbsp;级&nbsp;&nbsp;</span>
+                        <input type="number" id="level-sel" className="btn-sm" defaultValue="2014" placeholder="输入年级"/>
                     </div>
 
-                    <button className=" btn btn-primary col-md-2" onClick={this.selectReq.bind(this)}>查询</button>
-                    <button className=" col-md-2 btn btn-primary" onClick={this.modalReq.bind(this)}>增加毕业要求</button>
-
-
                 </div>
+                <div className="row add">
+                    <button className=" btn-sm btn-primary col-md-2" onClick={this.selectReq.bind(this)}>查询毕业要求指标点
+                    </button>
+                    <button className=" col-md-2 col-md-offset-1 btn-sm btn-primary"
+                            onClick={this.modalProfession.bind(this)}>
+                        增加专业
+                    </button>
+                    <button className=" col-md-2 col-md-offset-1 btn-sm btn-primary" onClick={this.modalReq.bind(this)}>
+                        增加毕业要求
+                    </button>
+                    <button className=" col-md-2 col-md-offset-1 btn-sm btn-primary"
+                            onClick={this.modalPoint.bind(this)}>
+                        增加指标点
+                    </button>
+                </div>
+
                 <div className="data">
-                    <table className="table table-hover" id="tabledata">
+                    <table className="table table-bordered" id="tabledata">
+                        <thead id="tableHead"></thead>
                         <tbody>
                         {reqPiontsNode}
                         </tbody>
@@ -216,22 +223,26 @@ export default class GraduationRequirements extends Component {
                         </div>
                         <div className="">
                             <div className="info input-group">
-                                <label className="input-group-addon">专业</label><input id="selectedProfession"
+                                <label className="input-group-addon">专业</label><input id="selectedProfession2"
                                                                                       disabled="true"
                                                                                       className="form-control"/></div>
                             <div className="info input-group"><label className="input-group-addon">年级</label><input
-                                id='selectedLevel' disabled="true" className="form-control"/>
+                                id='selectedLevel2' disabled="true" className="form-control"/>
                             </div>
                             <div className="info input-group"><label className="input-group-addon">增加毕业要求</label>
                                 <textarea cols="60" rows="5"
-                                          id="textReq" className="form-control" placeholder="请输入一条"/>
+                                          id="textReq2" className="form-control" placeholder="请输入一条"/>
                             </div>
                             <div className="info input-group"><label className="input-group-addon">对应的指标点</label>
                                 <textarea cols="60" rows="5"
-                                          id="textPoint" className="form-control" placeholder="若输入多条请以；分隔"/>
+                                          id="textPoint2" className="form-control" placeholder="若输入多条请换行输入"/>
                             </div>
                         </div>
                         <div className="modal-footer">
+                            <div className="flag">
+                                {this.props.graduationRequirment.addReqResult.isSuccess === true ? 'success' : ""}
+                                {this.props.graduationRequirment.addReqResult.isSuccess === false ? 'fail' : ""}
+                            </div>
                             <button type="button" className="btn btn-primary" data-dismiss="modal">关闭</button>
                             <button type="button" className="btn btn-primary" id="sureReq"
                                     onClick={this.addReq.bind(this)}>确认增加
@@ -250,25 +261,29 @@ export default class GraduationRequirements extends Component {
                         </div>
                         <div className="">
                             <div className="info input-group">
-                                <label className="input-group-addon">专业</label><input id="p-selectedProfession"
+                                <label className="input-group-addon">专业</label><input id="selectedProfession3"
                                                                                       disabled="true"
                                                                                       className="form-control"/></div>
                             <div className="info input-group"><label className="input-group-addon">年级</label><input
-                                id='p-selectedLevel' disabled="true" className="form-control"/>
+                                id='selectedLevel3' disabled="true" className="form-control"/>
                             </div>
                             <div className="info input-group">
-                                <label className="input-group-addon">选择毕业要求</label><select id="p-selectedReq"
+                                <label className="input-group-addon">选择毕业要求</label><select id="textReq3"
                                                                                            className="btn form-control">
                             </select>
                             </div>
                             <div className="info input-group">
                                 <label className="input-group-addon">输入增加的指标点</label>
-                                <textarea name="" id="p-textPoint" cols="60" rows="5"
-                                          placeholder="若增加多条请以；分隔"></textarea>
+                                <textarea name="" id="textPoint3" cols="60" rows="5"
+                                          placeholder="若输入多条请换行输入"></textarea>
                             </div>
 
                         </div>
                         <div className="modal-footer">
+                            <div className="flag">
+                                {this.props.graduationRequirment.addPointResult.isSuccess === true ? 'success' : ""}
+                                {this.props.graduationRequirment.addPointResult.isSuccess === false ? 'fail' : ""}
+                            </div>
                             <button type="button" className="btn btn-primary" data-dismiss="modal">关闭</button>
                             <button type="button" className="btn btn-primary" id="sureReq"
                                     onClick={this.addPoint.bind(this)}>确认增加
@@ -288,9 +303,26 @@ export default class GraduationRequirements extends Component {
                         <div className="">
                             <div className="info input-group">
                                 <label className="input-group-addon">增加专业</label>
-                                <input id="professionName" className="form-control" placeholder="请输入专业名称"/></div>
+                                <input id="selectedProfession1" className="form-control" placeholder="请输入专业名称"/>
+                            </div>
+                            <div className="info input-group">
+                                <label className="input-group-addon">选择年级</label>
+                                <input type="number" id="selectedLevel1" className="form-control" defaultValue="2014"/>
+                            </div>
+                            <div className="info input-group"><label className="input-group-addon">增加毕业要求</label>
+                                <textarea cols="60" rows="5"
+                                          id="textReq1" className="form-control" placeholder="请输入一条"/>
+                            </div>
+                            <div className="info input-group"><label className="input-group-addon">对应的指标点</label>
+                                <textarea cols="60" rows="5"
+                                          id="textPoint1" className="form-control" placeholder="若输入多条请换行输入"/>
+                            </div>
                         </div>
                         <div className="modal-footer">
+                            <div className="flag" id="proflag">
+                                {this.props.graduationRequirment.addProfessionResult.isSuccess === true ? 'success' : ""}
+                                {this.props.graduationRequirment.addProfessionResult.isSuccess === false ? 'fail' : ""}
+                            </div>
                             <button type="button" className="btn btn-primary" data-dismiss="modal">关闭</button>
                             <button type="button" className="btn btn-primary" id="sureReq"
                                     onClick={this.addProfession.bind(this)}>确认增加

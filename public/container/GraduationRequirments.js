@@ -22,10 +22,12 @@ const mapDispatchToprops = (dispatch)=> {
         addRequirment:(addReqInfo)=>{
             dispatch({type:"ADDREQ",addReqInfo})
         },
-        addProfession:(professionName)=>{
-            dispatch({type:"ADDPROFESSION",professionName})
-        }
-
+        addProfession:(addReqInfo)=>{
+            dispatch({type:"ADDPRO",addReqInfo})
+        },
+        addPoint:(addReqInfo)=>{
+            dispatch({type:"ADDPOINT",addReqInfo})
+        },
     }
 };
 export default connect(mapStateToProps, mapDispatchToprops)(GraduationRequirements)

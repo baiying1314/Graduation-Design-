@@ -13,8 +13,14 @@ const mapDispatchToprops = (dispatch)=> {
         selectPlans: (selectPlanInfo)=> {
             dispatch({type: "SELECTPLAN", selectPlanInfo})
         },
-        selectPlanDetils: (selectDetilsInfo)=> {
-            dispatch({type: 'SELECTDETILS', selectDetilsInfo})
+        selectPlanDetils1: (selectDetilsInfo)=> {
+            dispatch({type: 'SELECTDETILS1', selectDetilsInfo})
+        },
+        selectPlanDetils2: (selectDetilsInfo)=> {
+            dispatch({type: 'SELECTDETILS2', selectDetilsInfo})
+        },
+        selectPlanDetils3: (selectDetilsInfo)=> {
+            dispatch({type: 'SELECTDETILS3', selectDetilsInfo})
         },
         deletePlan: (deleteInfo)=> {
             dispatch({type:'DELETEPLAN',deleteInfo})

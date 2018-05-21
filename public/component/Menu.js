@@ -19,23 +19,17 @@ export default class Menu extends Component {
                 </div>
                 <div className='col-md-2 col-md-offset-1'>
                     <Link style={{color:"white"}} to='/ExaminationPlan'>
-                        <div id="ExaminationPlan"><p>考核计划管理</p></div>
+                        <div id="ExaminationPlan"><p>考核计划查看</p></div>
 
                     </Link>
                 </div>
                 <div className='col-md-2 col-md-offset-1'>
-                    <Link style={{color:"white"}} to='/ExaminationPlan'>
-                        <div id="ExaminationPlan"><p>达成度评价模块</p></div>
+                    <Link style={{color:"white"}} to='/examinationPlanInfo'>
+                        <div id="examinationPlanInfo"><p>编写考核计划</p></div>
                     </Link>
                 </div>
             </div>
-            <div className="left">
 
-                <div className="tip">当前用户：xxx</div>
-                <div className="tip">系统公告</div>
-                <div className="tip">新闻链接</div>
-                <div className="tip">关于我们</div>
-            </div>
         </div>
 
 

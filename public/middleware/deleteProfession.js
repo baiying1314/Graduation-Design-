@@ -2,11 +2,11 @@ import request from "superagent";
 
 export default store=>next=>action=> {
     if (action.type === "DELETEPROFESSION") {
-        request.delete(`/profession?id=${action.deleteInfo.id}`)
+        request.delete(`/profession`)
+            .send(action.deleteInfo.deleteInfo)
             .end((err, res)=> {
-                if (res.status === 200) {
+                console.log(res.body);
                     store.dispatch({type: "GETREQPOINT",proLevel:action.deleteInfo.proLevel});
-                }
             })
     }
     else {

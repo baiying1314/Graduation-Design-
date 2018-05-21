@@ -5,7 +5,8 @@ export default store=>next=>action=> {
         request.patch(`/point`)
             .send(action.changeInfo.changeData)
             .end((err, res)=> {
-                if (res.status === 200) {
+                next({type:'CHANGEPOINT',result:res.body});
+                if (res.body.isSuccess=== true) {
                     store.dispatch({type: "GETREQPOINT",proLevel:action.changeInfo.proLevel})
                 }
             })
