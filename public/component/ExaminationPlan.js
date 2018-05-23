@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
-import getIEsink from "./exportTable";
+import Menu from "./Menu";
 
 
 export default class ExaminationPlan extends Component {
@@ -248,7 +248,7 @@ export default class ExaminationPlan extends Component {
                 <td>{(obj.basis_percentage * 100).toFixed(2)}</td>
                 <td>{(obj.simple_application_percentage * 100).toFixed(2)}</td>
                 <td>{(obj.complex_application_percentage * 100).toFixed(2)}</td>
-                <td>{((obj.basis_percentage*100 + obj.complex_application_percentage*100 + obj.simple_application_percentage*100))}</td>
+                <td>{((obj.basis_percentage * 100 + obj.complex_application_percentage * 100 + obj.simple_application_percentage * 100))}</td>
             </tr>
         });
         let all = basis + simple + complex;
@@ -280,6 +280,7 @@ export default class ExaminationPlan extends Component {
         questionsInfoTable.push(lastquestionsTr);
 
         return <div id="exam">
+            <Menu/>
             <div className="dingwei"><img src="../style/images/dingwei.png" alt=""/>当前位置：考核计划查看页</div>
             <div className="container">
                 <div id="exam-main" className="row">

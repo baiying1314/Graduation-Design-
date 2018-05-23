@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const requestServer = '192.168.43.175:3000';
+// const requestServer = '192.168.43.175:3000';
+const requestServer = '192.168.1.106:3000';
 
 let request = require('superagent');
 
@@ -79,8 +80,33 @@ router.post('/plan', (req, response)=> {
         .send(req.body)
         .end((req, res)=> {
             let isSuccess = res.body;
-            console.log(isSuccess);
             response.send(isSuccess)
         });
+});
+
+router.post('/login',(req,response)=>{
+    request.post(`${requestServer}/login`)
+        .send(req.body)
+        .end((req,res)=>{
+            let isSuccess = res.body;
+            response.send(isSuccess);
+        })
+});
+
+router.post('/register',(req,response)=>{
+    request.post(`${requestServer}/register`)
+        .send(req.body)
+        .end((req,res)=>{
+            let isSuccess = res.body;
+            response.send(isSuccess);
+        })
+});
+
+router.get('/allPlans',(req,response)=>{
+    request.get(`${requestServer}/allPlans`)
+        .end((req,res)=>{
+            let isSuccess = res.body;
+            response.send(isSuccess);
+        })
 });
 module.exports = router;

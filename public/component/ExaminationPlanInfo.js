@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
+import Menu from "./Menu"
+
 
 export default class ExaminationPlanInfo extends Component {
     componentWillMount() {
@@ -234,6 +236,8 @@ export default class ExaminationPlanInfo extends Component {
             return <option value={obj}>{obj}</option>
         });
         return <div id="writePlan">
+            <Menu/>
+
             <div className="dingwei"><img src="../style/images/dingwei.png" alt=""/>当前位置：编写考核计划</div>
 
             <div className='container add'>

@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {render} from "react-dom";
+import Menu from "./Menu"
+
 
 export default class GraduationRequirements extends Component {
     componentWillMount() {
@@ -174,6 +176,8 @@ export default class GraduationRequirements extends Component {
         });
 
         return <div id="gr">
+            <Menu/>
+
             <div className="dingwei"><img src="../style/images/dingwei.png" alt=""/>当前位置：毕业要求管理页</div>
             <div className="container">
                 <div id="gr-main" className="row">
